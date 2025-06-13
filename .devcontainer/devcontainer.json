@@ -13,12 +13,6 @@
         "ms-kubernetes-tools.vscode-kubernetes-tools",
         "ms-azuretools.vscode-docker"
       ]
-    },
-    "jetbrains": {
-      "backend": "WebStorm",
-      "plugins" : [
-        "com.intellij.kubernetes"
-      ]
     }
   },
   "remoteUser": "root"
