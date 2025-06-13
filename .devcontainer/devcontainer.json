@@ -1,0 +1,25 @@
+{
+  "name": "Development Container",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/prulloac/devcontainer-features/bun:1": {},
+    "ghcr.io/rio/features/skaffold:2": {},
+    "ghcr.io/devcontainers/features/kubectl-helm-minikube:1": {}
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-kubernetes-tools.vscode-kubernetes-tools",
+        "ms-azuretools.vscode-docker"
+      ]
+    },
+    "jetbrains": {
+      "backend": "WebStorm",
+      "plugins" : [
+        "com.intellij.kubernetes"
+      ]
+    }
+  },
+  "remoteUser": "root"
+}
