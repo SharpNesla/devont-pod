@@ -14,5 +14,6 @@
         "ms-azuretools.vscode-docker"
       ]
     }
-  }
+  },
+  "postStartCommand": "chown $(id -u):$(id -g) ~/.kube/config /var/run/secrets/kubernetes.io/serviceaccount/token && chmod 600 /var/run/secrets/kubernetes.io/serviceaccount/token"
 }
