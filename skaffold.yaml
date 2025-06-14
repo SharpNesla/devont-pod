@@ -1,0 +1,12 @@
+apiVersion: skaffold/v4beta13
+kind: Config
+metadata:
+  name: devont-pod
+deploy:
+  helm:
+    releases:
+      - name: bun-app
+        chartPath: helm/bun-app
+        valuesFiles:
+          - helm/bun-app/values.yaml
+        version: 0.1.0

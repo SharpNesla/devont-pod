@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bun-app
+  labels:
+    app: bun-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bun-app
+  template:
+    metadata:
+      labels:
+        app: bun-app
+    spec:
+      containers:
+        - name: bun-app
+          image: "oven/bun:latest"
+          imagePullPolicy: IfNotPresent
+          command: ["bun"]
+          args: ["dev"]
+          ports:
+            - name: http
+              containerPort: 3000
+              protocol: TCP
+          volumeMounts:
+            - name: workspace
+              mountPath: /app
+      volumes:
+        - name: workspace
+          hostPath:
+            path: {{ .Values.workspacePath }}
+            type: Directory
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bun-app
+  labels:
+    app: bun-app
+spec:
+  type: ClusterIP
+  ports:
+    - port: 3000
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app: bun-app
+
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: bun-app-http
+  labels:
+    app: bun-app
+spec:
+  parentRefs:
+    - name: traefik-gateway
+      namespace: devpod
+      sectionName: web
+      kind: Gateway
+  hostnames:
+    - bun.localhost
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: bun-app
+          port: 3000

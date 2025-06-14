@@ -1,0 +1,18 @@
+# Простые настройки
+workspacePath: /workspaces/devont-pod
+
+# Traefik configuration
+traefik:
+  enabled: true
+  logs:
+    general:
+      level: DEBUG
+  providers:
+    kubernetesIngress:
+      enabled: false
+    kubernetesGateway:
+      enabled: true
+  gateway:
+    listeners:
+      web:
+        namespacePolicy: All
