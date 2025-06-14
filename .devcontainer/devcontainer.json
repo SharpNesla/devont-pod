@@ -15,5 +15,10 @@
       ]
     }
   },
-  "remoteUser": "root"
+  "mounts": [
+    "source=${localEnv:HOME}/.kube/config,target=${containerEnv:HOME}/.kube/config,type=bind,consistency=cached"
+  ],
+  "remoteEnv": {
+    "KUBECONFIG": "${containerEnv:HOME}/.kube/config"
+  }
 }
